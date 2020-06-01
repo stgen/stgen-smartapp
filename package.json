@@ -1,0 +1,28 @@
+{
+  "name": "stgen-smartapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "stgen -i accessToken && tsc",
+    "watch": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stgen/stgen-smartapp.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stgen/stgen-smartapp/issues"
+  },
+  "homepage": "https://github.com/stgen/stgen-smartapp#readme",
+  "dependencies": {
+    "@smartthings/smartapp": "^2.1.0",
+    "@stgen/stgen": "^0.1.1-alpha.3"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.3"
+  }
+}
