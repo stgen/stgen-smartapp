@@ -1,0 +1,46 @@
+name: Deployer
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  deploy-gcr:
+    # Follow the instructions here to set up a Cloud Run project
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_ID: ${{ secrets.RUN_PROJECT }}
+      RUN_REGION: ${{ secrets.RUN_REGION || us-central1 }}
+      SERVICE_NAME: stgen-smartapp
+    steps:
+      - if: ${{ !(secrets.RUN_PROJECT && secrets.RUN_SA_KEY) }}
+        run: |
+          echo "No Cloud Run configuration detected"
+          exit 0
+      - uses: actions/checkout@v2
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v1.4.2
+        with:
+          node-version: 12.x
+      - name: Setup gcloud environment
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@0.1.2
+        with:
+          # The service account key which will be used for authentication.
+          service_account_key: ${{ secrets.RUN_SA_KEY }}
+      - name: Build NPM package
+        run: npm run build
+      # Build and push image to Google Container Registry
+      - name: Build container
+        run: |-
+          gcloud builds submit \
+            --quiet \
+            --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA"
+      # Deploy image to Cloud Run
+      - name: Deploy
+        run: |-
+          gcloud run deploy "$SERVICE_NAME" \
+            --quiet \
+            --region "$RUN_REGION" \
+            --image "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA" \
+            --platform "managed" \
+            --allow-unauthenticated

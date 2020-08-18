@@ -1,5 +1,7 @@
-import * as stgen from "@stgen/stgen";
-import * as st from "@smartthings/core-sdk";
+/* eslint-disable @typescript-eslint/no-namespace */
+/* eslint-disable @typescript-eslint/no-empty-interface */
+import * as stgen from '@stgen/stgen';
+import * as st from '@smartthings/core-sdk';
 
 export namespace Actuator {
   export namespace v1 {
@@ -13,18 +15,18 @@ export namespace Actuator {
      * @deprecated Capability status is deprecated
      */
     export class Capability<
-      TComponent extends stgen.Component<any, TDevice>,
-      TDevice extends stgen.Device<any>
+      TComponent extends stgen.Component<unknown, TDevice>,
+      TDevice extends stgen.Device<unknown>
     > extends stgen.Capability<Status, TComponent, TDevice> {
       constructor(component: TComponent) {
-        super(component, {
+        super(component, ({
           attributes: {},
           commands: {},
-          id: "actuator",
-          name: "Actuator",
-          status: "deprecated",
+          id: 'actuator',
+          name: 'Actuator',
+          status: 'deprecated',
           version: 1,
-        } as any);
+        } as unknown) as st.Capability);
       }
     }
   }
@@ -41,18 +43,18 @@ export namespace Configuration {
      *
      */
     export class Capability<
-      TComponent extends stgen.Component<any, TDevice>,
-      TDevice extends stgen.Device<any>
+      TComponent extends stgen.Component<unknown, TDevice>,
+      TDevice extends stgen.Device<unknown>
     > extends stgen.Capability<Status, TComponent, TDevice> {
       constructor(component: TComponent) {
-        super(component, {
+        super(component, ({
           attributes: {},
           commands: { configure: { arguments: [] } },
-          id: "configuration",
-          name: "Configuration",
-          status: "live",
+          id: 'configuration',
+          name: 'Configuration',
+          status: 'live',
           version: 1,
-        } as any);
+        } as unknown) as st.Capability);
       }
 
       /**
@@ -62,7 +64,7 @@ export namespace Configuration {
         return this.client.devices.executeCommand(this.device.id, {
           component: this.component.id,
           capability: this.id,
-          command: "configure",
+          command: 'configure',
           arguments: [],
         });
       }
@@ -76,8 +78,8 @@ export namespace Healthcheck {
      *
      */
     export interface Status {
-      "DeviceWatch-DeviceStatus": {
-        value: "online" | "offline";
+      'DeviceWatch-DeviceStatus': {
+        value: 'online' | 'offline';
         data?: {
           /**
            * {}
@@ -86,10 +88,10 @@ export namespace Healthcheck {
           /**
            * {}
            */
-          deviceScheme?: "MIXED" | "TRACKED" | "UNTRACKED";
+          deviceScheme?: 'MIXED' | 'TRACKED' | 'UNTRACKED';
         };
       };
-      "DeviceWatch-Enroll": {
+      'DeviceWatch-Enroll': {
         value: {
           /**
            * {"maxLength":255,"title":"String"}
@@ -99,23 +101,23 @@ export namespace Healthcheck {
            * {"title":"DeviceHealthProtocol"}
            */
           protocol?:
-            | "zigbee"
-            | "zwave"
-            | "bluetooth"
-            | "lan"
-            | "cloud"
-            | "unknown"
-            | "ocf"
-            | "mqtt";
+            | 'zigbee'
+            | 'zwave'
+            | 'bluetooth'
+            | 'lan'
+            | 'cloud'
+            | 'unknown'
+            | 'ocf'
+            | 'mqtt';
           /**
            * {}
            */
-          scheme?: "MIXED" | "TRACKED" | "UNTRACKED";
+          scheme?: 'MIXED' | 'TRACKED' | 'UNTRACKED';
         };
       };
       checkInterval: {
         value: number;
-        unit?: "s";
+        unit?: 's';
         data?: {
           /**
            * {}
@@ -124,7 +126,7 @@ export namespace Healthcheck {
           /**
            * {}
            */
-          deviceScheme?: "MIXED" | "TRACKED" | "UNTRACKED";
+          deviceScheme?: 'MIXED' | 'TRACKED' | 'UNTRACKED';
           /**
            * {"pattern":"^[0-9a-fA-F]{4}$"}
            */
@@ -132,23 +134,23 @@ export namespace Healthcheck {
           /**
            * {}
            */
-          offlinePingable?: "0" | "1";
+          offlinePingable?: '0' | '1';
           /**
            * {"title":"DeviceHealthProtocol"}
            */
           protocol?:
-            | "zigbee"
-            | "zwave"
-            | "bluetooth"
-            | "lan"
-            | "cloud"
-            | "unknown"
-            | "ocf"
-            | "mqtt";
+            | 'zigbee'
+            | 'zwave'
+            | 'bluetooth'
+            | 'lan'
+            | 'cloud'
+            | 'unknown'
+            | 'ocf'
+            | 'mqtt';
         };
       };
       healthStatus: {
-        value: "online" | "offline";
+        value: 'online' | 'offline';
         data?: {
           /**
            * {}
@@ -157,7 +159,7 @@ export namespace Healthcheck {
           /**
            * {}
            */
-          deviceScheme?: "MIXED" | "TRACKED" | "UNTRACKED";
+          deviceScheme?: 'MIXED' | 'TRACKED' | 'UNTRACKED';
         };
       };
     }
@@ -166,13 +168,13 @@ export namespace Healthcheck {
      *
      */
     export class Capability<
-      TComponent extends stgen.Component<any, TDevice>,
-      TDevice extends stgen.Device<any>
+      TComponent extends stgen.Component<unknown, TDevice>,
+      TDevice extends stgen.Device<unknown>
     > extends stgen.Capability<Status, TComponent, TDevice> {
       constructor(component: TComponent) {
-        super(component, {
+        super(component, ({
           attributes: {
-            "DeviceWatch-DeviceStatus": {
+            'DeviceWatch-DeviceStatus': {
               enumCommands: [],
               schema: {
                 additionalProperties: false,
@@ -180,22 +182,19 @@ export namespace Healthcheck {
                   data: {
                     additionalProperties: false,
                     properties: {
-                      badProperty: { type: "string" },
-                      deviceScheme: {
-                        enum: ["MIXED", "TRACKED", "UNTRACKED"],
-                        type: "string",
-                      },
+                      badProperty: { type: 'string' },
+                      deviceScheme: { enum: ['MIXED', 'TRACKED', 'UNTRACKED'], type: 'string' },
                     },
                     required: [],
-                    type: "object",
+                    type: 'object',
                   },
-                  value: { enum: ["online", "offline"], type: "string" },
+                  value: { enum: ['online', 'offline'], type: 'string' },
                 },
-                required: ["value"],
-                type: "object",
+                required: ['value'],
+                type: 'object',
               },
             },
-            "DeviceWatch-Enroll": {
+            'DeviceWatch-Enroll': {
               enumCommands: [],
               schema: {
                 additionalProperties: false,
@@ -203,36 +202,29 @@ export namespace Healthcheck {
                   value: {
                     additionalProperties: false,
                     properties: {
-                      hubHardwareId: {
-                        maxLength: 255,
-                        title: "String",
-                        type: "string",
-                      },
+                      hubHardwareId: { maxLength: 255, title: 'String', type: 'string' },
                       protocol: {
                         enum: [
-                          "zigbee",
-                          "zwave",
-                          "bluetooth",
-                          "lan",
-                          "cloud",
-                          "unknown",
-                          "ocf",
-                          "mqtt",
+                          'zigbee',
+                          'zwave',
+                          'bluetooth',
+                          'lan',
+                          'cloud',
+                          'unknown',
+                          'ocf',
+                          'mqtt',
                         ],
-                        title: "DeviceHealthProtocol",
-                        type: "string",
+                        title: 'DeviceHealthProtocol',
+                        type: 'string',
                       },
-                      scheme: {
-                        enum: ["MIXED", "TRACKED", "UNTRACKED"],
-                        type: "string",
-                      },
+                      scheme: { enum: ['MIXED', 'TRACKED', 'UNTRACKED'], type: 'string' },
                     },
-                    title: "DeviceHealthEnroll",
-                    type: "object",
+                    title: 'DeviceHealthEnroll',
+                    type: 'object',
                   },
                 },
-                required: ["value"],
-                type: "object",
+                required: ['value'],
+                type: 'object',
               },
             },
             checkInterval: {
@@ -243,39 +235,33 @@ export namespace Healthcheck {
                   data: {
                     additionalProperties: false,
                     properties: {
-                      badProperty: { type: "string" },
-                      deviceScheme: {
-                        enum: ["MIXED", "TRACKED", "UNTRACKED"],
-                        type: "string",
-                      },
-                      hubHardwareId: {
-                        pattern: "^[0-9a-fA-F]{4}$",
-                        type: "string",
-                      },
-                      offlinePingable: { enum: ["0", "1"], type: "string" },
+                      badProperty: { type: 'string' },
+                      deviceScheme: { enum: ['MIXED', 'TRACKED', 'UNTRACKED'], type: 'string' },
+                      hubHardwareId: { pattern: '^[0-9a-fA-F]{4}$', type: 'string' },
+                      offlinePingable: { enum: ['0', '1'], type: 'string' },
                       protocol: {
                         enum: [
-                          "zigbee",
-                          "zwave",
-                          "bluetooth",
-                          "lan",
-                          "cloud",
-                          "unknown",
-                          "ocf",
-                          "mqtt",
+                          'zigbee',
+                          'zwave',
+                          'bluetooth',
+                          'lan',
+                          'cloud',
+                          'unknown',
+                          'ocf',
+                          'mqtt',
                         ],
-                        title: "DeviceHealthProtocol",
-                        type: "string",
+                        title: 'DeviceHealthProtocol',
+                        type: 'string',
                       },
                     },
                     required: [],
-                    type: "object",
+                    type: 'object',
                   },
-                  unit: { default: "s", enum: ["s"], type: "string" },
-                  value: { maximum: 604800, minimum: 0, type: "integer" },
+                  unit: { default: 's', enum: ['s'], type: 'string' },
+                  value: { maximum: 604800, minimum: 0, type: 'integer' },
                 },
-                required: ["value"],
-                type: "object",
+                required: ['value'],
+                type: 'object',
               },
             },
             healthStatus: {
@@ -286,28 +272,25 @@ export namespace Healthcheck {
                   data: {
                     additionalProperties: false,
                     properties: {
-                      badProperty: { type: "string" },
-                      deviceScheme: {
-                        enum: ["MIXED", "TRACKED", "UNTRACKED"],
-                        type: "string",
-                      },
+                      badProperty: { type: 'string' },
+                      deviceScheme: { enum: ['MIXED', 'TRACKED', 'UNTRACKED'], type: 'string' },
                     },
                     required: [],
-                    type: "object",
+                    type: 'object',
                   },
-                  value: { enum: ["online", "offline"], type: "string" },
+                  value: { enum: ['online', 'offline'], type: 'string' },
                 },
-                required: ["value"],
-                type: "object",
+                required: ['value'],
+                type: 'object',
               },
             },
           },
           commands: { ping: { arguments: [] } },
-          id: "healthCheck",
-          name: "Health Check",
-          status: "live",
+          id: 'healthCheck',
+          name: 'Health Check',
+          status: 'live',
           version: 1,
-        } as any);
+        } as unknown) as st.Capability);
       }
 
       /**
@@ -317,7 +300,7 @@ export namespace Healthcheck {
         return this.client.devices.executeCommand(this.device.id, {
           component: this.component.id,
           capability: this.id,
-          command: "ping",
+          command: 'ping',
           arguments: [],
         });
       }
@@ -336,18 +319,18 @@ export namespace Refresh {
      *
      */
     export class Capability<
-      TComponent extends stgen.Component<any, TDevice>,
-      TDevice extends stgen.Device<any>
+      TComponent extends stgen.Component<unknown, TDevice>,
+      TDevice extends stgen.Device<unknown>
     > extends stgen.Capability<Status, TComponent, TDevice> {
       constructor(component: TComponent) {
-        super(component, {
+        super(component, ({
           attributes: {},
           commands: { refresh: { arguments: [] } },
-          id: "refresh",
-          name: "Refresh",
-          status: "live",
+          id: 'refresh',
+          name: 'Refresh',
+          status: 'live',
           version: 1,
-        } as any);
+        } as unknown) as st.Capability);
       }
 
       /**
@@ -357,7 +340,7 @@ export namespace Refresh {
         return this.client.devices.executeCommand(this.device.id, {
           component: this.component.id,
           capability: this.id,
-          command: "refresh",
+          command: 'refresh',
           arguments: [],
         });
       }
@@ -371,44 +354,40 @@ export namespace Relayswitch {
      * @deprecated Capability status is deprecated
      */
     export interface Status {
-      switch: { value: "on" | "off" };
+      switch: { value: 'on' | 'off' };
     }
     /**
      * Rich client for Relay Switch v1
      * @deprecated Capability status is deprecated
      */
     export class Capability<
-      TComponent extends stgen.Component<any, TDevice>,
-      TDevice extends stgen.Device<any>
+      TComponent extends stgen.Component<unknown, TDevice>,
+      TDevice extends stgen.Device<unknown>
     > extends stgen.Capability<Status, TComponent, TDevice> {
       constructor(component: TComponent) {
-        super(component, {
+        super(component, ({
           attributes: {
             switch: {
               enumCommands: [
-                { command: "on", value: "on" },
-                { command: "off", value: "off" },
+                { command: 'on', value: 'on' },
+                { command: 'off', value: 'off' },
               ],
               schema: {
                 additionalProperties: false,
                 properties: {
-                  value: {
-                    enum: ["on", "off"],
-                    title: "SwitchState",
-                    type: "string",
-                  },
+                  value: { enum: ['on', 'off'], title: 'SwitchState', type: 'string' },
                 },
-                required: ["value"],
-                type: "object",
+                required: ['value'],
+                type: 'object',
               },
             },
           },
           commands: { off: { arguments: [] }, on: { arguments: [] } },
-          id: "relaySwitch",
-          name: "Relay Switch",
-          status: "deprecated",
+          id: 'relaySwitch',
+          name: 'Relay Switch',
+          status: 'deprecated',
           version: 1,
-        } as any);
+        } as unknown) as st.Capability);
       }
 
       /**
@@ -418,7 +397,7 @@ export namespace Relayswitch {
         return this.client.devices.executeCommand(this.device.id, {
           component: this.component.id,
           capability: this.id,
-          command: "off",
+          command: 'off',
           arguments: [],
         });
       }
@@ -430,7 +409,7 @@ export namespace Relayswitch {
         return this.client.devices.executeCommand(this.device.id, {
           component: this.component.id,
           capability: this.id,
-          command: "on",
+          command: 'on',
           arguments: [],
         });
       }
@@ -449,18 +428,18 @@ export namespace Sensor {
      * @deprecated Capability status is deprecated
      */
     export class Capability<
-      TComponent extends stgen.Component<any, TDevice>,
-      TDevice extends stgen.Device<any>
+      TComponent extends stgen.Component<unknown, TDevice>,
+      TDevice extends stgen.Device<unknown>
     > extends stgen.Capability<Status, TComponent, TDevice> {
       constructor(component: TComponent) {
-        super(component, {
+        super(component, ({
           attributes: {},
           commands: {},
-          id: "sensor",
-          name: "Sensor",
-          status: "deprecated",
+          id: 'sensor',
+          name: 'Sensor',
+          status: 'deprecated',
           version: 1,
-        } as any);
+        } as unknown) as st.Capability);
       }
     }
   }
@@ -472,44 +451,40 @@ export namespace Switch {
      *
      */
     export interface Status {
-      switch: { value: "on" | "off" };
+      switch: { value: 'on' | 'off' };
     }
     /**
      * Rich client for Switch v1
      *
      */
     export class Capability<
-      TComponent extends stgen.Component<any, TDevice>,
-      TDevice extends stgen.Device<any>
+      TComponent extends stgen.Component<unknown, TDevice>,
+      TDevice extends stgen.Device<unknown>
     > extends stgen.Capability<Status, TComponent, TDevice> {
       constructor(component: TComponent) {
-        super(component, {
+        super(component, ({
           attributes: {
             switch: {
               enumCommands: [
-                { command: "on", value: "on" },
-                { command: "off", value: "off" },
+                { command: 'on', value: 'on' },
+                { command: 'off', value: 'off' },
               ],
               schema: {
                 additionalProperties: false,
                 properties: {
-                  value: {
-                    enum: ["on", "off"],
-                    title: "SwitchState",
-                    type: "string",
-                  },
+                  value: { enum: ['on', 'off'], title: 'SwitchState', type: 'string' },
                 },
-                required: ["value"],
-                type: "object",
+                required: ['value'],
+                type: 'object',
               },
             },
           },
           commands: { off: { arguments: [] }, on: { arguments: [] } },
-          id: "switch",
-          name: "Switch",
-          status: "live",
+          id: 'switch',
+          name: 'Switch',
+          status: 'live',
           version: 1,
-        } as any);
+        } as unknown) as st.Capability);
       }
 
       /**
@@ -519,7 +494,7 @@ export namespace Switch {
         return this.client.devices.executeCommand(this.device.id, {
           component: this.component.id,
           capability: this.id,
-          command: "off",
+          command: 'off',
           arguments: [],
         });
       }
@@ -531,7 +506,7 @@ export namespace Switch {
         return this.client.devices.executeCommand(this.device.id, {
           component: this.component.id,
           capability: this.id,
-          command: "on",
+          command: 'on',
           arguments: [],
         });
       }
@@ -545,59 +520,55 @@ export namespace Switchlevel {
      *
      */
     export interface Status {
-      level: { value: number; unit?: "%" };
+      level: { value: number; unit?: '%' };
     }
     /**
      * Rich client for Switch Level v1
      *
      */
     export class Capability<
-      TComponent extends stgen.Component<any, TDevice>,
-      TDevice extends stgen.Device<any>
+      TComponent extends stgen.Component<unknown, TDevice>,
+      TDevice extends stgen.Device<unknown>
     > extends stgen.Capability<Status, TComponent, TDevice> {
       constructor(component: TComponent) {
-        super(component, {
+        super(component, ({
           attributes: {
             level: {
               enumCommands: [],
               schema: {
                 additionalProperties: false,
                 properties: {
-                  unit: { default: "%", enum: ["%"], type: "string" },
-                  value: { maximum: 100, minimum: 0, type: "integer" },
+                  unit: { default: '%', enum: ['%'], type: 'string' },
+                  value: { maximum: 100, minimum: 0, type: 'integer' },
                 },
-                required: ["value"],
-                title: "IntegerPercent",
-                type: "object",
+                required: ['value'],
+                title: 'IntegerPercent',
+                type: 'object',
               },
-              setter: "setLevel",
+              setter: 'setLevel',
             },
           },
           commands: {
             setLevel: {
               arguments: [
                 {
-                  name: "level",
+                  name: 'level',
                   optional: false,
-                  schema: { maximum: 100, minimum: 0, type: "integer" },
+                  schema: { maximum: 100, minimum: 0, type: 'integer' },
                 },
                 {
-                  name: "rate",
+                  name: 'rate',
                   optional: true,
-                  schema: {
-                    minimum: 0,
-                    title: "PositiveInteger",
-                    type: "integer",
-                  },
+                  schema: { minimum: 0, title: 'PositiveInteger', type: 'integer' },
                 },
               ],
             },
           },
-          id: "switchLevel",
-          name: "Switch Level",
-          status: "live",
+          id: 'switchLevel',
+          name: 'Switch Level',
+          status: 'live',
           version: 1,
-        } as any);
+        } as unknown) as st.Capability);
       }
 
       /**
@@ -607,7 +578,7 @@ export namespace Switchlevel {
         return this.client.devices.executeCommand(this.device.id, {
           component: this.component.id,
           capability: this.id,
-          command: "setLevel",
+          command: 'setLevel',
           arguments: [level, rate!],
         });
       }
@@ -621,15 +592,9 @@ export namespace Windowshade {
      *
      */
     export interface Status {
-      supportedWindowShadeCommands: { value?: "open" | "close" | "pause"[] };
+      supportedWindowShadeCommands: { value?: 'open' | 'close' | 'pause'[] };
       windowShade: {
-        value:
-          | "closed"
-          | "closing"
-          | "open"
-          | "opening"
-          | "partially open"
-          | "unknown";
+        value: 'closed' | 'closing' | 'open' | 'opening' | 'partially open' | 'unknown';
       };
     }
     /**
@@ -637,11 +602,11 @@ export namespace Windowshade {
      *
      */
     export class Capability<
-      TComponent extends stgen.Component<any, TDevice>,
-      TDevice extends stgen.Device<any>
+      TComponent extends stgen.Component<unknown, TDevice>,
+      TDevice extends stgen.Device<unknown>
     > extends stgen.Capability<Status, TComponent, TDevice> {
       constructor(component: TComponent) {
-        super(component, {
+        super(component, ({
           attributes: {
             supportedWindowShadeCommands: {
               enumCommands: [],
@@ -649,50 +614,39 @@ export namespace Windowshade {
                 additionalProperties: false,
                 properties: {
                   value: {
-                    items: { enum: ["open", "close", "pause"], type: "string" },
-                    type: "array",
+                    items: { enum: ['open', 'close', 'pause'], type: 'string' },
+                    type: 'array',
                   },
                 },
                 required: [],
-                type: "object",
+                type: 'object',
               },
             },
             windowShade: {
               enumCommands: [
-                { command: "close", value: "closed" },
-                { command: "open", value: "open" },
+                { command: 'close', value: 'closed' },
+                { command: 'open', value: 'open' },
               ],
               schema: {
                 additionalProperties: false,
                 properties: {
                   value: {
-                    enum: [
-                      "closed",
-                      "closing",
-                      "open",
-                      "opening",
-                      "partially open",
-                      "unknown",
-                    ],
-                    title: "OpenableState",
-                    type: "string",
+                    enum: ['closed', 'closing', 'open', 'opening', 'partially open', 'unknown'],
+                    title: 'OpenableState',
+                    type: 'string',
                   },
                 },
-                required: ["value"],
-                type: "object",
+                required: ['value'],
+                type: 'object',
               },
             },
           },
-          commands: {
-            close: { arguments: [] },
-            open: { arguments: [] },
-            pause: { arguments: [] },
-          },
-          id: "windowShade",
-          name: "Window Shade",
-          status: "live",
+          commands: { close: { arguments: [] }, open: { arguments: [] }, pause: { arguments: [] } },
+          id: 'windowShade',
+          name: 'Window Shade',
+          status: 'live',
           version: 1,
-        } as any);
+        } as unknown) as st.Capability);
       }
 
       /**
@@ -702,7 +656,7 @@ export namespace Windowshade {
         return this.client.devices.executeCommand(this.device.id, {
           component: this.component.id,
           capability: this.id,
-          command: "close",
+          command: 'close',
           arguments: [],
         });
       }
@@ -714,7 +668,7 @@ export namespace Windowshade {
         return this.client.devices.executeCommand(this.device.id, {
           component: this.component.id,
           capability: this.id,
-          command: "open",
+          command: 'open',
           arguments: [],
         });
       }
@@ -726,7 +680,7 @@ export namespace Windowshade {
         return this.client.devices.executeCommand(this.device.id, {
           component: this.component.id,
           capability: this.id,
-          command: "pause",
+          command: 'pause',
           arguments: [],
         });
       }
@@ -745,18 +699,18 @@ export namespace Windowshadepreset {
      *
      */
     export class Capability<
-      TComponent extends stgen.Component<any, TDevice>,
-      TDevice extends stgen.Device<any>
+      TComponent extends stgen.Component<unknown, TDevice>,
+      TDevice extends stgen.Device<unknown>
     > extends stgen.Capability<Status, TComponent, TDevice> {
       constructor(component: TComponent) {
-        super(component, {
+        super(component, ({
           attributes: {},
           commands: { presetPosition: { arguments: [] } },
-          id: "windowShadePreset",
-          name: "Window Shade Preset",
-          status: "live",
+          id: 'windowShadePreset',
+          name: 'Window Shade Preset',
+          status: 'live',
           version: 1,
-        } as any);
+        } as unknown) as st.Capability);
       }
 
       /**
@@ -766,7 +720,7 @@ export namespace Windowshadepreset {
         return this.client.devices.executeCommand(this.device.id, {
           component: this.component.id,
           capability: this.id,
-          command: "presetPosition",
+          command: 'presetPosition',
           arguments: [],
         });
       }

@@ -10,6 +10,26 @@
 			"group": "build",
 			"label": "npm: build",
 			"detail": "tsc"
+		},
+		{
+			"type": "npm",
+			"script": "generate",
+			"problemMatcher": [
+				"$tsc"
+			],
+			"group": "build",
+			"label": "npm: generate",
+			"detail": "Runs stgen"
+		},
+		{
+			"type": "npm",
+			"script": "watch",
+			"problemMatcher": [
+				"$tsc"
+			],
+			"group": "build",
+			"label": "npm: watch",
+			"detail": "tsc -w"
 		}
 	]
 }
