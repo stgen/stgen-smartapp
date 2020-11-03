@@ -22,7 +22,8 @@ export const stgenSmartAppModuleTemplate: STGenSmartAppModule = {
 
     /*
     router.use(express.json()).post('/faspdoifa1234701748asdlfkj/turnOff', (req, res) => {
-      console.log(`Got data from POST: ${res.json}`);
+      console.log('Got data from POST:', req.body);
+      res.json({ result: 'ok' });
     });
     */
 

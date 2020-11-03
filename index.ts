@@ -13,11 +13,16 @@ const client = new SmartThingsClient(new BearerTokenAuthenticator(token));
 setDefaultClient(client);
 
 const smartApp = new STGenSmartApp();
+//(smartApp as any)._authorizer.isAuthorized = () => true;
 
 const smartAppRoute = express
   .Router()
   .use(express.json())
-  .post('/', (req, res, _next) => smartApp.handleHttpCallback(req, res));
+  .post('/', (req, res, _next) => {
+    // Use the baseUrl to allow signature verification to work
+    req.url = req.baseUrl;
+    smartApp.handleHttpCallback(req, res);
+  });
 
 const server = express();
 

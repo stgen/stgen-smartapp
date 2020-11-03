@@ -38,6 +38,7 @@ export namespace TestHome {
         locationId: '8d9710c4-595f-4260-bcdb-71e1e18045b7',
         longitude: null,
         name: 'Test Home',
+        parent: null,
         regionRadius: null,
         temperatureScale: 'F',
         timeZoneId: null,

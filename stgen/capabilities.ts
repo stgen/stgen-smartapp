@@ -558,7 +558,7 @@ export namespace Switchlevel {
                 },
                 {
                   name: 'rate',
-                  optional: true,
+                  optional: false,
                   schema: { minimum: 0, title: 'PositiveInteger', type: 'integer' },
                 },
               ],
@@ -574,12 +574,12 @@ export namespace Switchlevel {
       /**
        * Executes "setLevel" for this capability
        */
-      setlevel(level: number, rate?: number): Promise<st.Status> {
+      setlevel(level: number, rate: number): Promise<st.Status> {
         return this.client.devices.executeCommand(this.device.id, {
           component: this.component.id,
           capability: this.id,
           command: 'setLevel',
-          arguments: [level, rate!],
+          arguments: [level, rate],
         });
       }
     }
