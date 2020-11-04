@@ -26,7 +26,7 @@ Add the following secrets to your repository:
 
 ## Generating Typescript bindings
 
-To generate Typescript bindings to your SmartThings, run the ["Generate Typescript Bindings"](./actions?query=workflow%3A"Generate+Typescript+Bindings") workflow using GitHub Actions. This will open a pull request for your repository with updated bindings, which you can review and merge.
+To generate Typescript bindings to your SmartThings, run the ["Generate Typescript Bindings"](/actions?query=workflow%3A"Generate+Typescript+Bindings") workflow using GitHub Actions. This will open a pull request for your repository with updated bindings, which you can review and merge.
 
 This workflow is also set to run hourly, checking for changes to your home setup. Under most circumstances, you'll find up-to-date bindings waiting for you in a pull request in your repository automatically.
 
@@ -55,8 +55,8 @@ From there, you can subscribe to events, handle custom HTTP requests, or write a
 
 ## Deploying
 
-This repository uses GitHub Actions to automatically deploy your SmartApp. Once your repository is set up, you can deploy by creating a [new release](./releases/new).
+This repository uses GitHub Actions to automatically deploy your SmartApp. Once your repository is set up, you can deploy by creating a [new release](../../releases/new).
 
 ## Keeping your repository up to date
 
-This repository is configured to automatically check for updates from the upstream stgen/stgen-smartapp repository and open pull requests to keep you up to date. You can also trigger [the workflow](./actions?query=workflow%3A"Check+for+updates+to+stgen%2Fstgen-smartapp") manually.
+This repository is configured to automatically check for updates from the upstream stgen/stgen-smartapp repository and open pull requests to keep you up to date. You can also trigger [the workflow](../../actions?query=workflow%3A"Check+for+updates+to+stgen%2Fstgen-smartapp") manually.
