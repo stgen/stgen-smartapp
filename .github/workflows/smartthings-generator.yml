@@ -1,0 +1,49 @@
+name: Generate Typescript Bindings
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 * * * *'
+
+jobs:
+  stgen:
+    name: Run STGen
+    runs-on: ubuntu-latest
+    env:
+      ST_PERSONAL_TOKEN: ${{ secrets.ST_PERSONAL_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Add access token
+        run: printf "$ST_PERSONAL_TOKEN" > accessToken
+
+      - name: Create a branch with generated code
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "stgen-smartapp@users.noreply.github.com"
+          git checkout stgen-action || git checkout -b stgen-action
+          git merge --no-edit --log master
+          git push origin stgen-action
+          npm run generate
+          git add -A
+          git commit -m "STGen ${{ github.run_id }}_${{ github.run_number }}"
+          git push origin stgen-action
+
+      - name: Open a pull request
+        uses: actions/github-script@v3
+        with:
+          script: |
+            github.pulls.create({
+              owner: "${{ github.repository_owner }}",
+              repo: "${{ github.event.repository.name }}",
+              title: "Update generated bindings",
+              head: "stgen-action",
+              base: "master"
+            })
+        continue-on-error: true

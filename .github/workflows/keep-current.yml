@@ -1,0 +1,41 @@
+name: Check for updates to stgen/stgen-smartapp
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 * * * *'
+
+jobs:
+  keep-current:
+    name: Sync with stgen/stgen-smartapp
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Create a branch with upstream changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "stgen-smartapp@users.noreply.github.com"
+          git checkout stgen-latest || git checkout -b stgen-latest
+          git merge --no-edit --log master
+          git push origin stgen-latest
+          git remote add upstream git://github.com/stgen/stgen-smartapp
+          git fetch upstream
+          git merge --no-edit --log upstream/master
+          git push origin stgen-latest
+
+      - name: Open a pull request
+        uses: actions/github-script@v3
+        with:
+          script: |
+            github.pulls.create({
+              owner: "${{ github.repository_owner }}",
+              repo: "${{ github.event.repository.name }}",
+              title: "Update from stgen/stgen-smartapp",
+              head: "stgen-latest",
+              base: "master"
+            })
+        continue-on-error: true

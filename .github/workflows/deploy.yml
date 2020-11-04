@@ -10,10 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PROJECT_ID: ${{ secrets.RUN_PROJECT }}
-      RUN_REGION: ${{ secrets.RUN_REGION || us-central1 }}
-      SERVICE_NAME: stgen-smartapp
+      RUN_REGION: ${{ secrets.RUN_REGION || 'us-central1' }}
+      SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
+      RUN_SA_KEY: ${{ secrets.RUN_SA_KEY }}
+      ST_PERSONAL_TOKEN: ${{ secrets.ST_PERSONAL_TOKEN }}
     steps:
-      - if: ${{ !(secrets.RUN_PROJECT && secrets.RUN_SA_KEY) }}
+      - if: ${{ !(env.RUN_PROJECT && env.RUN_SA_KEY) }}
         run: |
           echo "No Cloud Run configuration detected"
           exit 0
@@ -21,14 +23,21 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v1.4.2
         with:
-          node-version: 12.x
+          node-version: 14.x
       - name: Setup gcloud environment
-        uses: GoogleCloudPlatform/github-actions/setup-gcloud@0.1.2
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@0.1.3
         with:
           # The service account key which will be used for authentication.
-          service_account_key: ${{ secrets.RUN_SA_KEY }}
+          service_account_key: ${{ env.RUN_SA_KEY }}
+          project_id: ${{ env.PROJECT_ID }}
+      - name: Emit personal access token
+        run: echo $ST_PERSONAL_TOKEN > accessToken
+      - name: Install NPM packages
+        run: npm install
       - name: Build NPM package
         run: npm run build
+      - name: Enable build caching
+        run: gcloud config set builds/use_kaniko True
       # Build and push image to Google Container Registry
       - name: Build container
         run: |-
