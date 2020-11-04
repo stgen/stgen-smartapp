@@ -53,6 +53,10 @@ npm run create-module --name=<moduleName>
 
 From there, you can subscribe to events, handle custom HTTP requests, or write any other integrations.
 
+## Deploying
+
+This repository uses GitHub Actions to automatically deploy your SmartApp. Once your repository is set up, you can deploy by creating a [new release](./releases/new).
+
 ## Keeping your repository up to date
 
 This repository is configured to automatically check for updates from the upstream stgen/stgen-smartapp repository and open pull requests to keep you up to date. You can also trigger [the workflow](./actions?query=workflow%3A"Check+for+updates+to+stgen%2Fstgen-smartapp") manually.
