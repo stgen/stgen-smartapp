@@ -26,7 +26,7 @@ Add the following secrets to your repository:
 
 ## Generating Typescript bindings
 
-To generate Typescript bindings to your SmartThings, run the ["Generate Typescript Bindings"](/actions?query=workflow%3A"Generate+Typescript+Bindings") workflow using GitHub Actions. This will open a pull request for your repository with updated bindings, which you can review and merge.
+To generate Typescript bindings to your SmartThings, run the ["Generate Typescript Bindings"](../../actions?query=workflow%3A"Generate+Typescript+Bindings") workflow using GitHub Actions. This will open a pull request for your repository with updated bindings, which you can review and merge.
 
 This workflow is also set to run hourly, checking for changes to your home setup. Under most circumstances, you'll find up-to-date bindings waiting for you in a pull request in your repository automatically.
 
