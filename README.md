@@ -18,6 +18,7 @@ Add the following secrets to your repository:
 
 - All users
   - `ST_PERSONAL_TOKEN` - Your SmartThings [personal access token](https://account.smartthings.com/tokens), with all permissions granted
+  - `GH_WORKFLOWS_TOKEN` - A GitHub personal access token with 'workflows' permission, used for keeping the repository up to date
 - Cloud Run
   - `RUN_PROJECT` - Your Google Cloud project ID
   - `RUN_REGION` - The region for your Cloud Run instance (default: us-central1)
