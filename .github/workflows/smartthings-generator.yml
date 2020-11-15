@@ -32,7 +32,7 @@ jobs:
           git push origin stgen-action
           npm run generate
           git add -A
-          git commit -m "STGen ${{ github.run_id }}_${{ github.run_number }}"
+          git commit -m "STGen ${{ github.run_id }}_${{ github.run_number }}" || true
           git push origin stgen-action
 
       - name: Open a pull request
