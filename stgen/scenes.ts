@@ -11,10 +11,7 @@ export class TurnOnVirtualSwitch extends stgen.Scene {
     super(client, ({
       apiVersion: 'ocfmode',
       createdBy: '804aef6a-fd5d-f6f1-aeac-294147149195',
-      createdDate: 1590448181000,
       editable: false,
-      lastExecutedDate: 1604362289000,
-      lastUpdatedDate: 1590448181000,
       locationId: '8d9710c4-595f-4260-bcdb-71e1e18045b7',
       sceneColor: null,
       sceneIcon: '200',
@@ -32,10 +29,7 @@ export class TurnOffVirtualSwitch extends stgen.Scene {
     super(client, ({
       apiVersion: 'ocfmode',
       createdBy: '804aef6a-fd5d-f6f1-aeac-294147149195',
-      createdDate: 1590448198000,
       editable: false,
-      lastExecutedDate: 1604362289000,
-      lastUpdatedDate: 1590448198000,
       locationId: '8d9710c4-595f-4260-bcdb-71e1e18045b7',
       sceneColor: null,
       sceneIcon: '200',
