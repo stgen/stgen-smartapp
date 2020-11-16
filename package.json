@@ -11,7 +11,7 @@
     "watch": "tsc -w",
     "lint": "eslint .",
     "start": "node build/index.js",
-    "create-module": "cp modules/moduleTemplate.ts modules/$npm_config_name.ts; sed -i \"s/stgenSmartAppModuleTemplate/$npm_config_name/g\" modules/$npm_config_name.ts; echo \"export * from './$npm_config_name';\" >> modules/index.ts"
+    "create-module": "cp modules/moduleTemplate.ts modules/$npm_config_name.ts; sed -i \"s/stgenSmartAppModuleTemplate/$npm_config_name/g\" modules/$npm_config_name.ts; sed -i \"s/<GUID>/$(cat /proc/sys/kernel/random/uuid)/g\" modules/$npm_config_name.ts; echo \"export * from './$npm_config_name';\" >> modules/index.ts"
   },
   "repository": {
     "type": "git",

@@ -8,6 +8,9 @@ import * as devices from '../stgen/devices';
 import * as scenes from '../stgen/scenes';
 import * as locations from '../stgen/locations';
 
+// A GUID generated with the module to use as a token for other services
+const moduleToken = '<GUID>';
+
 export const stgenSmartAppModuleTemplate: STGenSmartAppModule = {
   configure(app: STGenSmartApp): express.IRouter | null {
     // Subscribe to device events
